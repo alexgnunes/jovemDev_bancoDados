@@ -1,0 +1,40 @@
+-- listar clientes por cidade
+select * from cliente c 
+inner join endereco e on e.id = c.endereco 
+inner join cidade cid on  cid.id =e.cidade and cid.nome = 'tubarao';
+
+--listar vendas por cliente
+select v.id , c.nome , p.nome 
+from venda v 
+inner join venda_produto vp on vp.venda = v.id 
+inner join cliente c on c.id = v.cliente and c.nome = 'tony stark'
+inner join produto p on p.id = vp.produto ;
+
+--SQL com o tipo de join mais adequado para listar todos os produtos e categorias 
+select c.descricao , p.nome 
+from categoria c 
+left join produto p on p.categoria = c.id;  
+
+--Elaborar comandos SQL para mais três relatórios gerenciais 
+--1- pesquisa entre data vendas
+select p.nome ,p.valor as "valor unidade", vp.qt_produto as quant, vp.qt_produto * p.valor as "valor venda"
+from produto p 
+inner join venda_produto vp on vp.produto = p.id 
+inner join venda v on v.id = vp.venda and v.data_venda between '2023-04-01' and '2023-06-13';
+
+--2-pesquisa aniversariante do mes
+select c.nome , c.data_nasc , TO_CHAR(c.data_nasc, 'Month') AS mes_aniversario
+from cliente c 
+where date_part('month',c.data_nasc) = date_part('month', current_date);
+
+--3-total de vendas do mes 06
+select TO_CHAR(v.data_venda , 'Month') as mes, sum(vp.qt_produto * p.valor ) 
+from venda v 
+inner join venda_produto vp on vp.venda  = v.id 
+inner join produto p on p.id = vp.produto 
+where date_part('month',v.data_venda) = 06
+group by  TO_CHAR(v.data_venda , 'Month'); 
+
+
+
+

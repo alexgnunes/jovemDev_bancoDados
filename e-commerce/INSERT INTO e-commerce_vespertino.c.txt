@@ -1,0 +1,67 @@
+INSERT INTO "e-commerce_vespertino".categoria (descricao) VALUES
+	 ('eletrônicos'),
+	 ('roupas'),
+	 ('acessórios'),
+	 ('livros'),
+	 ('cosméticos'),
+	 ('esportes'),
+	 ('alimentos'),
+	 ('móveis'),
+	 ('brinquedos'),
+	 ('jogos');
+INSERT INTO "e-commerce_vespertino".categoria (descricao) VALUES
+	 ('instrumentos musicais'),
+	 ('decoração');
+
+
+INSERT INTO "e-commerce_vespertino".venda_produto (qt_produto,produto,venda) VALUES
+	 (1,1,1),
+	 (2,2,2),
+	 (3,3,3),
+	 (1,4,4),
+	 (2,5,5),
+	 (3,6,6);
+
+INSERT INTO "e-commerce_vespertino".venda (data_venda,cliente) VALUES
+	 ('2023-06-12',5),
+	 ('2023-06-13',2),
+	 ('2023-04-12',2),
+	 ('2023-02-12',3),
+	 ('2023-01-07',4),
+	 ('2023-03-06',3);
+
+INSERT INTO "e-commerce_vespertino".telefone (numero,cliente) VALUES
+	 (995925642,5),
+	 (956232545,2),
+	 (954871234,3),
+	 (625948741,4),
+	 (36221222,4);
+
+
+INSERT INTO "e-commerce_vespertino".produto (valor,qt_estoque,categoria,nome) VALUES
+	 (100.0,10,13,'smartphone'),
+	 (50.0,20,14,'camiseta'),
+	 (25.0,15,15,'óculos de sol'),
+	 (15.0,12,17,'batom'),
+	 (75.0,8,18,'bola de futebol'),
+	 (35.0,30,16,'clean code');
+
+INSERT INTO "e-commerce_vespertino".endereco (rua,bairro,cidade) VALUES
+	 ('rua 1','bairro 1',1),
+	 ('rua 2','bairro 2',2),
+	 ('rua 4','bairro 4',4),
+	 ('rua 3','bairro 3',1);
+
+
+INSERT INTO "e-commerce_vespertino".cliente (nome,sexo,data_nasc,endereco) VALUES
+	 ('tony stark','M','1970-05-29',1),
+	 ('peter parker','M','2001-08-10',3),
+	 ('diana','F','1968-03-17',4),
+	 ('natasha romanoff','F','1984-06-22',2);
+
+INSERT INTO "e-commerce_vespertino".cidade (nome,uf) VALUES
+	 ('tubarao','SC'),
+	 ('gravatal','SC'),
+	 ('sao paulo','SP'),
+	 ('curitiba','PR');
+

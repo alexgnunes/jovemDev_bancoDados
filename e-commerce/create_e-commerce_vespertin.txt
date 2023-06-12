@@ -1,0 +1,197 @@
+-- DROP SCHEMA "e-commerce_vespertino";
+
+CREATE SCHEMA "e-commerce_vespertino" AUTHORIZATION postgres;
+
+-- DROP SEQUENCE "e-commerce_vespertino".categoria_id_seq;
+
+CREATE SEQUENCE "e-commerce_vespertino".categoria_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;
+-- DROP SEQUENCE "e-commerce_vespertino".cidade_id_seq;
+
+CREATE SEQUENCE "e-commerce_vespertino".cidade_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;
+-- DROP SEQUENCE "e-commerce_vespertino".cliente_id_seq;
+
+CREATE SEQUENCE "e-commerce_vespertino".cliente_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;
+-- DROP SEQUENCE "e-commerce_vespertino".endereco_id_seq;
+
+CREATE SEQUENCE "e-commerce_vespertino".endereco_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;
+-- DROP SEQUENCE "e-commerce_vespertino".produto_id_seq;
+
+CREATE SEQUENCE "e-commerce_vespertino".produto_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;
+-- DROP SEQUENCE "e-commerce_vespertino".telefone_id_seq;
+
+CREATE SEQUENCE "e-commerce_vespertino".telefone_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;
+-- DROP SEQUENCE "e-commerce_vespertino".venda_id_seq;
+
+CREATE SEQUENCE "e-commerce_vespertino".venda_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;
+-- DROP SEQUENCE "e-commerce_vespertino".venda_produto_id_seq;
+
+CREATE SEQUENCE "e-commerce_vespertino".venda_produto_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;-- "e-commerce_vespertino".categoria definition
+
+-- Drop table
+
+-- DROP TABLE categoria;
+
+CREATE TABLE categoria (
+	id serial4 NOT NULL,
+	descricao varchar NOT NULL,
+	CONSTRAINT categoria_pk PRIMARY KEY (id)
+);
+
+
+-- "e-commerce_vespertino".cidade definition
+
+-- Drop table
+
+-- DROP TABLE cidade;
+
+CREATE TABLE cidade (
+	id serial4 NOT NULL,
+	nome varchar NOT NULL,
+	uf varchar(2) NOT NULL,
+	CONSTRAINT cidade_pk PRIMARY KEY (id)
+);
+
+
+-- "e-commerce_vespertino".endereco definition
+
+-- Drop table
+
+-- DROP TABLE endereco;
+
+CREATE TABLE endereco (
+	id serial4 NOT NULL,
+	rua varchar NOT NULL,
+	bairro varchar NOT NULL,
+	cidade int4 NOT NULL,
+	CONSTRAINT endereco_pk PRIMARY KEY (id),
+	CONSTRAINT endereco_fk FOREIGN KEY (cidade) REFERENCES cidade(id)
+);
+
+
+-- "e-commerce_vespertino".produto definition
+
+-- Drop table
+
+-- DROP TABLE produto;
+
+CREATE TABLE produto (
+	id serial4 NOT NULL,
+	valor float8 NOT NULL,
+	qt_estoque int4 NOT NULL,
+	categoria int4 NOT NULL,
+	nome varchar NOT NULL,
+	CONSTRAINT produto_pk PRIMARY KEY (id),
+	CONSTRAINT produto_fk FOREIGN KEY (categoria) REFERENCES categoria(id)
+);
+
+
+-- "e-commerce_vespertino".cliente definition
+
+-- Drop table
+
+-- DROP TABLE cliente;
+
+CREATE TABLE cliente (
+	id serial4 NOT NULL,
+	nome varchar NOT NULL,
+	sexo bpchar(1) NOT NULL,
+	data_nasc date NOT NULL,
+	endereco int4 NOT NULL,
+	CONSTRAINT cliente_pk PRIMARY KEY (id),
+	CONSTRAINT cliente_fk FOREIGN KEY (endereco) REFERENCES endereco(id)
+);
+
+
+-- "e-commerce_vespertino".telefone definition
+
+-- Drop table
+
+-- DROP TABLE telefone;
+
+CREATE TABLE telefone (
+	id serial4 NOT NULL,
+	numero int4 NULL,
+	cliente int4 NOT NULL,
+	CONSTRAINT telefone_pk PRIMARY KEY (id),
+	CONSTRAINT telefone_fk FOREIGN KEY (cliente) REFERENCES cliente(id)
+);
+
+
+-- "e-commerce_vespertino".venda definition
+
+-- Drop table
+
+-- DROP TABLE venda;
+
+CREATE TABLE venda (
+	id serial4 NOT NULL,
+	data_venda date NOT NULL,
+	cliente int4 NOT NULL,
+	CONSTRAINT venda_pk PRIMARY KEY (id),
+	CONSTRAINT venda_fk FOREIGN KEY (cliente) REFERENCES cliente(id)
+);
+
+
+-- "e-commerce_vespertino".venda_produto definition
+
+-- Drop table
+
+-- DROP TABLE venda_produto;
+
+CREATE TABLE venda_produto (
+	id serial4 NOT NULL,
+	qt_produto int4 NOT NULL,
+	produto int4 NOT NULL,
+	venda int4 NOT NULL,
+	CONSTRAINT venda_produto_pk PRIMARY KEY (id),
+	CONSTRAINT venda_produto_fk FOREIGN KEY (venda) REFERENCES venda(id),
+	CONSTRAINT venda_produto_fk_1 FOREIGN KEY (produto) REFERENCES produto(id)
+);
